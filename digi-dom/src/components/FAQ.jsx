@@ -42,15 +42,17 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="w-full py-20 px-10 text-white relative overflow-hidden">
-
-    
-
+    <section
+      id="faq"
+      className="w-full py-20 px-10 text-white relative overflow-hidden bg-black"
+    >
       <div className="relative grid grid-cols-1 md:grid-cols-2 gap-16 max-w-7xl mx-auto">
 
-       
+        {/* LEFT */}
         <div>
-          <h2 className="mt-20 text-9xl text-[#C20CD3] font-['GoogleSans'] font-bold mb-6 ">FAQs</h2>
+          <h2 className="mt-20 text-9xl text-[#C20CD3] font-['GoogleSans'] font-bold mb-6">
+            FAQs
+          </h2>
           <p className="text-gray-300 leading-relaxed max-w-md font-['GoogleSans']">
             Have questions about our Digital Dominators? Our FAQs have got you
             covered. Discover important details on registration, session
@@ -58,44 +60,57 @@ export default function FAQ() {
           </p>
         </div>
 
-        
-        <div className="space-y-4">
+        {/* RIGHT */}
+        <div className="space-y-5">
 
-          {faqs.map((faq, index) => (
-            <div key={index} className="pb-4">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
 
-              
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center text-left text-md font-['GoogleSans'] py-4"
+            return (
+              <div
+                key={index}
+                className={`rounded-xl border transition-all duration-300
+                  ${
+                    isOpen
+                      ? "border-white bg-white/5"
+                      : "border-white/20 bg-white/3 hover:border-white/40"
+                  }
+                `}
               >
-                <span>{faq.question}</span>
-                <span
-                  className={`transform transition-transform duration-300 ${
-                    openIndex === index ? "rotate-180" : ""
-                  }`}
+                {/* QUESTION */}
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full flex justify-between items-center text-left text-md font-['GoogleSans'] px-6 py-5"
                 >
-                  ▼
-                </span>
-              </button>
-
-              
-              <AnimatePresence>
-                {openIndex === index && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-gray-300 pr-6"
+                  <span>{faq.question}</span>
+                  <span
+                    className={`transform transition-transform duration-300 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
                   >
-                    <p className="pl-4 pt-4 font-['GoogleSans']">{faq.answer}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    ▲
+                  </span>
+                </button>
 
-            </div>
-          ))}
+                {/* ANSWER */}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-gray-300 px-6 pb-5"
+                    >
+                      <p className="pt-5 font-['GoogleSans']">
+                        {faq.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
 
         </div>
       </div>
