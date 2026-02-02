@@ -221,11 +221,13 @@ export default function Team(){
                   />
 
                   <img
-                    src={member.img}
-                    alt={member.name}
-                    className={`relative w-full h-full rounded-full object-cover
-                    ${pos !== "center" ? "grayscale" : ""}`}
-                  />
+  src={member.img}
+  alt={member.name}
+  className={`relative w-full h-full rounded-full object-cover
+  ${pos !== "center" ? "grayscale" : ""}
+  ${member.name === "TITASH SHIL" ? "object-top" : "object-center"}`}
+/>
+
                 </div>
 
                 {pos === "center" && (
