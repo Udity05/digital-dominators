@@ -109,12 +109,12 @@ button:focus-visible {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-70%);
+    transform: translateX(-50%);
   }
 }
 
 .animate-events-scroll {
-  animation: events-scroll 30s linear infinite;
+  animation: events-scroll 100s linear infinite;
 }
 
 .animate-events-scroll:hover {

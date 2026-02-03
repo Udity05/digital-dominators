@@ -18,6 +18,7 @@ const communityPartners = [
   { id: 10, img: "/SIT.png", name: "SIT" },
   { id: 11, img: "/Social Dark.png", name: "Social" },
   { id: 12, img: "/GDG Siliguri.png", name: "GDG Siliguri"},
+  { id: 13, img: "/DoraDAO.jpeg", name: "DoraDAO" },
 ];
 
 const containerVariants = {

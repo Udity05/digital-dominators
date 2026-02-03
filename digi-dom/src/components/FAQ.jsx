@@ -92,7 +92,7 @@ export default function FAQ() {
                   </span>
                 </button>
 
-                {/* ANSWER */}
+                
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
