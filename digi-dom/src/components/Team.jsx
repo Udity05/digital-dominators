@@ -57,7 +57,15 @@ export default function Team() {
   return (
     <section id="team" className="w-full bg-black py-20 text-white overflow-hidden">
 
+      <div className="max-w-xl ml-28 mb-16">
+        <p className="text-4xl text-left text-white font-['GoogleSans']">
+          Our team is a powerhouse of creativity, leadership, and unstoppable
+          energy for community success.
+        </p>
+      </div>
+
       <div className="relative h-[420px] flex items-center justify-center gap-16">
+
 
         {/* LEFT BUTTON */}
         <button
