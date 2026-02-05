@@ -67,11 +67,16 @@ const events = [
 
 export default function Events() {
   return (
-    <section id="events" className="w-full bg-black py-24 overflow-hidden text-white">
+    <section
+      id="events"
+      className="w-full bg-black py-24 overflow-hidden text-white"
+    >
 
-      {/* UPCOMING EVENTS */}
-      <div className="mb-32">
-        <div className="flex items-center justify-between px-12 mb-14">
+      {/* ================= UPCOMING EVENTS ================= */}
+      <div className="mb-28">
+
+        {/* HEADER ROW */}
+        <div className="flex items-center justify-between px-12 mb-12">
 
           <div className="flex items-center h-[120px]">
             <button className="px-10 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 font-['GoogleSans']">
@@ -79,31 +84,33 @@ export default function Events() {
             </button>
           </div>
 
-          <div className="mr-10 flex flex-col justify-center max-w-xl text-right">
-            <h2 className="mb-16 text-2xl md:text-3xl leading-relaxed font-['GoogleSans']">
+          <div className="flex flex-col justify-center max-w-xl text-right">
+            <h2 className="text-2xl md:text-3xl leading-relaxed font-['GoogleSans']">
               The next chapter is about to begin — bigger ideas,
               bolder collaborations, and unforgettable experiences.
             </h2>
-
-            <div className=" relative w-full h-full overflow-hidden">
-              <div className="flex gap-8 font-['GoogleSans']">
-                {newEvents.map((event, i) => (
-                  <EventCard
-                    key={`upcoming-${i}`}
-                    title={event.title}
-                    img={event.img}
-                    link={event.link}
-                  />
-                ))}
-              </div>
-            </div>
-
           </div>
         </div>
+
+        {/* UPCOMING CARD ROW — NOW ALIGNED */}
+        <div className="relative px-12">
+          <div className="flex gap-8 font-['GoogleSans']">
+            {newEvents.map((event, i) => (
+              <EventCard
+                key={`upcoming-${i}`}
+                title={event.title}
+                img={event.img}
+                link={event.link}
+              />
+            ))}
+          </div>
+        </div>
+
       </div>
 
-      {/* PAST EVENTS */}
+      {/* ================= PAST EVENTS ================= */}
       <div className="flex items-center justify-between px-12 mb-14">
+
         <div className="flex items-center h-[120px]">
           <button className="px-10 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 font-['GoogleSans']">
             Past Events
@@ -118,7 +125,8 @@ export default function Events() {
         </div>
       </div>
 
-      <div className="relative  overflow-hidden">
+      {/* PAST EVENTS CAROUSEL */}
+      <div className="relative overflow-hidden">
         <div className="flex w-max gap-8 animate-events-scroll font-['GoogleSans']">
           {[...events, ...events].map((event, i) => (
             <EventCard
