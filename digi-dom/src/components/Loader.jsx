@@ -21,7 +21,7 @@ export default function Loader() {
         transition={{ delay: 0.5 }}
         className="mt-6 text-gray-400 mb-8 font-['GoogleSans']"
       >
-        Loading experience...
+        Landing in the Digital Dominators space...
       </motion.p>
 
       {/* Progress Bar */}
