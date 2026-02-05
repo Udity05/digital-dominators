@@ -38,7 +38,7 @@ export default function Footer() {
       href="mailto:cotact.dd@gmail.com"
       className="text-gray-400 hover:text-purple-400 block"
     >
-      cotact.dd@gmail.com
+      qwiklabexplorers2025@gmail.com
     </a>
   </p>
 
