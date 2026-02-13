@@ -6,7 +6,7 @@ export default function Stats() {
         {/* Stat 1 */}
         <div className="flex flex-col items-center justify-center py-12 border-b md:border-b-0 md:border-r border-gray-700">
           <h2 className="text-3xl md:text-4xl text-white font-semibold">
-            1600+
+            2000+
           </h2>
           <p className="mt-2 text-gray-300 tracking-wide">
             Members

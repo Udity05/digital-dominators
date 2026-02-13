@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 
 const certificatePartner = [
-  { id: 1, img: "/commudle-logo192.png", name: "Commudle", link: "https://www.commudle.com/" },
+  { id: 1, img: "/commudle-logo192.png", name: "Commudle", link: "https://www.commudle.com/admin/communities/digital-dominators" },
   { id: 4, img: "/GMCLogSq.562e75e0.png", name: "Give My Certificate", link: "https://givemycertificate.com/" },
 ];
 
