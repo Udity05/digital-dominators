@@ -2,23 +2,25 @@ import { motion } from "framer-motion";
 
 
 const certificatePartner = [
-  { id: 1, img: "/commudle-logo192.png", name: "Commudle" },
-  { id: 4, img: "/GMCLogSq.562e75e0.png", name: "Google Developer Groups" },
+  { id: 1, img: "/commudle-logo192.png", name: "Commudle", link: "https://www.commudle.com/" },
+  { id: 4, img: "/GMCLogSq.562e75e0.png", name: "Give My Certificate", link: "https://givemycertificate.com/" },
 ];
 
 
 const communityPartners = [
-  { id: 2, img: "/Apertre.logo.png", name: "Apertre" },
-  { id: 3, img: "/ByteRush_Logo.png", name: "ByteRush" },
-  { id: 5, img: "/hackolution logo.png", name: "Hackolution" },
-  { id: 6, img: "/JWOC.logo.jpeg", name: "JWOC" },
-  { id: 7, img: "/metamorph.png", name: "Metamorph" },
-  { id: 8, img: "/OSCI Logo.jpg", name: "OSCI" },
-  { id: 9, img: "/SAMARTH_GRADIENT.png", name: "Samarth" },
-  { id: 10, img: "/SIT.png", name: "SIT" },
-  { id: 11, img: "/Social Dark.png", name: "Social" },
-  { id: 12, img: "/GDG Siliguri.png", name: "GDG Siliguri"},
-  { id: 13, img: "/DoraDAO.jpeg", name: "DoraDAO" },
+  { id: 2, img: "/Apertre.logo.png", name: "Apertre", link: "https://apertre.resourcio.in/" },
+  { id: 3, img: "/ByteRush_Logo.png", name: "ByteRush", link: "https://byte-rush.tech/" },
+  { id: 5, img: "/hackolution logo.png", name: "Hackolution", link: "https://www.hackolution.tech/" },
+  { id: 6, img: "/JWOC.logo.jpeg", name: "JWOC", link: "https://www.jwoc.in/" },
+  { id: 7, img: "/metamorph.png", name: "Metamorph", link: "https://www.meta-morph.tech/" },
+  { id: 8, img: "/OSCI Logo.jpg", name: "OSCI", link: "https://www.osconnect.org/" },
+  { id: 9, img: "/SAMARTH_GRADIENT.png", name: "Samarth", link: "https://educathon.samarthtmsl.in/" },
+  { id: 10, img: "/SIT.png", name: "SIT", link: "https://konfhub.com/sap-inside-track-2025-kolkata" },
+  { id: 11, img: "/Social Dark.png", name: "SOURCIFY", link: "http://cosmohack.tech" },
+  { id: 12, img: "/GDG Siliguri.png", name: "GDG Siliguri", link: "https://gdg.community.dev/events/details/google-gdg-siliguri-presents-devfest-siliguri-2025/" },
+  { id: 13, img: "/DoraDAO.jpeg", name: "DoraDAO", link: "https://doradao.xyz/" },
+  { id: 14, img: "/techstars-startup-weekend-siliguri.jpeg", name: "Techstars Startup", link: "https://inspiria.edu.in/swsiliguri/" },
+  { id: 15, img: "/react-kolkata.jpeg", name: "React Kolkata", link: "https://reactkolkata.com/" },
 ];
 
 const containerVariants = {
@@ -53,12 +55,21 @@ const CertificatePartnerGrid = ({ partners }) => (
         key={partner.id}
         variants={itemVariants}
         whileHover={{ scale: 1.08 }}
+        className="flex flex-col items-center gap-3"
       >
-        <img
-          src={partner.img}
-          alt={partner.name}
-          className="w-28 h-28 object-contain transition"
-        />
+        <a
+          href={partner.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center gap-3 cursor-pointer"
+        >
+          <img
+            src={partner.img}
+            alt={partner.name}
+            className="w-28 h-28 object-contain transition"
+          />
+          <p className="text-sm text-center text-gray-300">{partner.name}</p>
+        </a>
       </motion.div>
     ))}
   </motion.div>
@@ -78,13 +89,21 @@ const CommunityPartnerGrid = ({ partners }) => (
         key={partner.id}
         variants={itemVariants}
         whileHover={{ scale: 1.07 }}
-        className="rounded-xl border border-purple-500/40 p-4 hover:border-purple-400 transition"
+        className="rounded-xl border border-purple-500/40 p-4 hover:border-purple-400 transition flex flex-col items-center gap-3"
       >
-        <img
-          src={partner.img}
-          alt={partner.name}
-          className="w-24 h-24 object-contain"
-        />
+        <a
+          href={partner.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center gap-3 cursor-pointer"
+        >
+          <img
+            src={partner.img}
+            alt={partner.name}
+            className="w-24 h-24 object-contain"
+          />
+          <p className="text-sm text-center text-gray-300">{partner.name}</p>
+        </a>
       </motion.div>
     ))}
   </motion.div>
@@ -95,7 +114,7 @@ export default function Partner() {
     <section id="partner" className="w-full bg-black py-20 text-white">
       <div className="max-w-6xl mx-auto px-6 font-['GoogleSans']">
 
-      
+
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +124,7 @@ export default function Partner() {
           Our Partners
         </motion.h2>
 
-        
+
         <div className="mb-20">
           <h3 className="text-xl md:text-2xl font-medium text-center mb-8 text-purple-400">
             Event & Certificate Partner
@@ -113,7 +132,7 @@ export default function Partner() {
           <CertificatePartnerGrid partners={certificatePartner} />
         </div>
 
-        
+
         <div>
           <h3 className="text-xl md:text-2xl font-medium text-center mb-8 text-purple-400">
             Community Partners
