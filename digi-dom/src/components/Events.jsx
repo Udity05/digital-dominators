@@ -2,9 +2,10 @@ import EventCard from "./EventCard";
 
 const newEvents = [
   {
-    title: "Upcoming Event",
-    img: "/Luma.jpeg",
-    link: "https://luma.com/digital-dominators?k=c",
+    title: "Why Build on the Conflux Network — Web3 Basics, Open Source, Hackathons & OSEN",
+    date: "21st Feb, 7:00 PM",
+    img: "/Conflux-Network-Event.jpeg",
+    link: "https://luma.com/km5arp23",
   },
 ];
 
@@ -62,6 +63,12 @@ const events = [
     date: "10th January, 7PM",
     img: "/Harsh.jpeg",
     link: "https://luma.com/7qzpy95q",
+  },
+  {
+    title: "Building a Real-Time Surplus Engine with Gemini 3 Flash & AlloyDB",
+    date: "8th Feb, 7:30 PM",
+    img: "/Real-Time-Surplus-Engine-Event.jpeg",
+    link: "https://luma.com/npfyfwfn",
   },
 ];
 
