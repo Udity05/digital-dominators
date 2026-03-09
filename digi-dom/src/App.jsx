@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { HeroUIProvider } from "@heroui/react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
@@ -14,6 +14,8 @@ import Testimonials from "./components/Testimonials";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
 import Partner from "./components/Partner";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function MainPage() {
   return (
@@ -65,6 +67,8 @@ function App() {
 
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/about" element={<Partner />} />
           <Route path="/team" element={<Team />} />
