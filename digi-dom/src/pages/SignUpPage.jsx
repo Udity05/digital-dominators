@@ -78,7 +78,8 @@ function SignUpForm() {
         }
 
         try {
-            const response = await fetch("/api/auth/register", {
+            const API_URL = import.meta.env.VITE_API_URL || "";
+            const response = await fetch(`${API_URL}/api/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -107,7 +108,8 @@ function SignUpForm() {
     }
 
     const handleGoogleSignUp = () => {
-        window.location.href = "/api/auth/google?signup=true"
+        const API_URL = import.meta.env.VITE_API_URL || "";
+        window.location.href = `${API_URL}/api/auth/google?signup=true`
     }
 
     return (

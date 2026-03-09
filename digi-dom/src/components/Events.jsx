@@ -29,7 +29,8 @@ export default function Events() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch("/api/events");
+      const API_URL = import.meta.env.VITE_API_URL || "";
+      const response = await fetch(`${API_URL}/api/events`);
       const data = await response.json();
       if (data.success) {
         const upcoming = data.events.filter(e => e.type === "upcoming");
@@ -61,7 +62,8 @@ export default function Events() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`/api/events/${eventToDelete}`, {
+      const API_URL = import.meta.env.VITE_API_URL || "";
+      const response = await fetch(`${API_URL}/api/events/${eventToDelete}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

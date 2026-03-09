@@ -57,7 +57,8 @@ export default function EventModal({ isOpen, onClose, onAdd }) {
             dataToSend.append("type", formData.type);
             dataToSend.append("image", imageFile);
 
-            const response = await fetch("/api/events", {
+            const API_URL = import.meta.env.VITE_API_URL || "";
+            const response = await fetch(`${API_URL}/api/events`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
