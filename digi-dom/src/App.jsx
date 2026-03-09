@@ -1,7 +1,7 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { HeroUIProvider } from "@heroui/react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
@@ -14,6 +14,8 @@ import Testimonials from "./components/Testimonials";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
 import Partner from "./components/Partner";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function MainPage() {
   return (
@@ -32,6 +34,7 @@ function MainPage() {
 
 function App() {
   const { scrollYProgress } = useScroll();
+  const location = useLocation();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -41,6 +44,18 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Handle Google OAuth redirect params
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('auth_token');
+    const userData = params.get('user_data');
+
+    if (token && userData) {
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', userData);
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);
@@ -65,6 +80,8 @@ function App() {
 
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/about" element={<Partner />} />
           <Route path="/team" element={<Team />} />
@@ -73,7 +90,7 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
         </Routes>
 
-        <Footer />
+        {!["/login", "/sign-up"].includes(location.pathname) && <Footer />}
       </div>
     </HeroUIProvider>
   );
