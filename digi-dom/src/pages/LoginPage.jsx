@@ -71,7 +71,8 @@ function LoginForm() {
         }
 
         try {
-            const response = await fetch("/api/auth/signin", {
+            const API_URL = import.meta.env.VITE_API_URL || "";
+            const response = await fetch(`${API_URL}/api/auth/signin`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -98,7 +99,8 @@ function LoginForm() {
     }
 
     const handleGoogleLogin = () => {
-        window.location.href = "/api/auth/google?signup=false"
+        const API_URL = import.meta.env.VITE_API_URL || "";
+        window.location.href = `${API_URL}/api/auth/google?signup=false`
     }
 
     return (

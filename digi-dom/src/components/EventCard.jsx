@@ -5,7 +5,7 @@ export default function EventCard({ id, title, date, img, link, isAdmin, onDelet
     <div className="group relative min-w-[260px] h-[360px] rounded-2xl overflow-hidden shrink-0 transition-transform duration-300 hover:scale-[1.02]">
 
       <img
-        src={img}
+        src={`${import.meta.env.VITE_API_URL || ""}${img}`}
         alt={title}
         className="w-full h-full object-cover"
       />
