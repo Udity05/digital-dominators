@@ -2,15 +2,18 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/events', require('./routes/events'));
 
 // DB Connection
 mongoose.connect(process.env.MONGODB_URI)

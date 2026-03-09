@@ -1,102 +1,131 @@
+import { useState, useEffect } from "react";
 import EventCard from "./EventCard";
-
-const newEvents = [
-  {
-    title: "Upcoming Event",
-    img: "/Luma.jpeg",
-    link: "https://luma.com/digital-dominators?k=c",
-  },
-];
-
-const events = [
-  {
-    title: "Google Arcade Facilitator Program",
-    date: "2024",
-    img: "/Facilitator.jpeg",
-    link: "https://rsvp.withgoogle.com/events/arcade-facilitator/home",
-  },
-  {
-    title: "Gen AI with Pieces",
-    date: "13th July, 7PM",
-    img: "/AliMustafa.jpeg",
-    link: "https://luma.com/699zvici",
-  },
-  {
-    title: "React Caching: From useMemo to Server Components",
-    date: "12th August, 7:30 PM",
-    img: "/Sulagna.jpeg",
-    link: "https://lu.ma/tktsoytq",
-  },
-  {
-    title: "Design Smarter: UI/UX Basics to Industry-Ready",
-    date: "31st August, 7PM",
-    img: "/Rahul.jpeg",
-    link: "https://lu.ma/gablitiv",
-  },
-  {
-    title: "Google Arcade Facilitator Program",
-    date: "2025",
-    img: "/Facilitator.jpeg",
-    link: "https://rsvp.withgoogle.com/events/arcade-facilitator/home",
-  },
-  {
-    title: "SIH & Beyond",
-    date: "14th September, 8PM",
-    img: "/Souradip.jpeg",
-    link: "https://luma.com/ct3kpr96",
-  },
-  {
-    title: "Building AI-Powered Apps with Gemini & Firebase",
-    date: "19th October, 6PM",
-    img: "/Deb.jpeg",
-    link: "https://luma.com/783237t7",
-  },
-  {
-    title: "30 Days DSA Challenge",
-    date: "1st Nov - 30th Nov",
-    img: "/DSA.jpeg",
-    link: "https://luma.com/990pdla5",
-  },
-  {
-    title: "Beyond Boundaries: Azure AI for Next-Gen Applications",
-    date: "10th January, 7PM",
-    img: "/Harsh.jpeg",
-    link: "https://luma.com/7qzpy95q",
-  },
-  {
-    title: "Building a Real-Time Surplus Engine with Gemini 3 Flash & AlloyDB",
-    date: "8th Feb, 7:30 PM",
-    img: "/Real-Time-Surplus-Engine-Event.jpeg",
-    link: "https://luma.com/npfyfwfn",
-  },
-  {
-    title: "Why Build on the Conflux Network — Web3 Basics, Open Source, Hackathons & OSEN",
-    date: "21st Feb, 7:00 PM",
-    img: "/Conflux-Network-Event.jpeg",
-    link: "https://luma.com/km5arp23",
-  },
-];
+import EventModal from "./ui/EventModal";
+import DeleteConfirmModal from "./ui/DeleteConfirmModal";
+import { Plus } from "lucide-react";
 
 export default function Events() {
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [pastEvents, setPastEvents] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Delete State
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    // Check if user is admin
+    const userJson = localStorage.getItem("user");
+    if (userJson) {
+      const user = JSON.parse(userJson);
+      setIsAdmin(user.role === "Admin");
+    }
+
+    // Fetch events from backend
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch("/api/events");
+      const data = await response.json();
+      if (data.success) {
+        const upcoming = data.events.filter(e => e.type === "upcoming");
+        const past = data.events.filter(e => e.type === "past");
+        setUpcomingEvents(upcoming);
+        setPastEvents(past);
+      }
+    } catch (err) {
+      console.error("Failed to fetch events:", err);
+    }
+  };
+
+  const handleAddEvent = (newEvent) => {
+    if (newEvent.type === "upcoming") {
+      setUpcomingEvents([newEvent, ...upcomingEvents]);
+    } else {
+      setPastEvents([newEvent, ...pastEvents]);
+    }
+  };
+
+  const handleDeleteClick = (id) => {
+    setEventToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!eventToDelete) return;
+    setIsDeleting(true);
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`/api/events/${eventToDelete}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setUpcomingEvents(upcomingEvents.filter((e) => e._id !== eventToDelete));
+        setPastEvents(pastEvents.filter((e) => e._id !== eventToDelete));
+        setIsDeleteModalOpen(false);
+      } else {
+        alert(data.message || "Failed to delete event");
+      }
+    } catch (err) {
+      console.error("Delete error:", err);
+      alert("Error deleting event");
+    } finally {
+      setIsDeleting(false);
+      setEventToDelete(null);
+    }
+  };
+
   return (
     <section
       id="events"
       className="w-full bg-black py-24 overflow-hidden text-white"
     >
+      <EventModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAdd={handleAddEvent}
+      />
+
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        loading={isDeleting}
+      />
 
       {/* ================= UPCOMING EVENTS ================= */}
       <div className="mb-28">
 
         {/* HEADER ROW */}
-        <div className="flex items-center justify-between px-12 mb-12">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between px-12 mb-12 gap-8">
 
-          <div className="flex items-center h-[120px]">
-            <button className="px-10 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 font-['GoogleSans']">
+          <div className="flex items-center gap-6">
+            <button className="px-10 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 font-['GoogleSans'] whitespace-nowrap">
               Upcoming Events
             </button>
+
+            {isAdmin && (
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="flex items-center gap-2 px-6 py-3 rounded-full border border-purple-500/50 hover:bg-purple-500/10 text-purple-400 font-['GoogleSans'] transition group"
+              >
+                <Plus size={20} className="group-hover:rotate-90 transition-transform duration-300" />
+                Add new events
+              </button>
+            )}
           </div>
 
-          <div className="flex flex-col justify-center max-w-xl text-right">
+          <div className="flex flex-col justify-center max-w-xl md:text-right">
             <h2 className="text-2xl md:text-3xl leading-relaxed font-['GoogleSans']">
               The next chapter is about to begin — bigger ideas,
               bolder collaborations, and unforgettable experiences.
@@ -104,18 +133,28 @@ export default function Events() {
           </div>
         </div>
 
-        {/* UPCOMING CARD ROW — NOW ALIGNED */}
+        {/* UPCOMING CARD ROW */}
         <div className="relative px-12">
-          <div className="flex gap-8 font-['GoogleSans']">
-            {newEvents.map((event, i) => (
-              <EventCard
-                key={`upcoming-${i}`}
-                title={event.title}
-                img={event.img}
-                link={event.link}
-              />
-            ))}
-          </div>
+          {upcomingEvents.length > 0 ? (
+            <div className="flex flex-wrap gap-8 font-['GoogleSans']">
+              {upcomingEvents.map((event, i) => (
+                <EventCard
+                  key={event._id || `upcoming-${i}`}
+                  id={event._id}
+                  title={event.title}
+                  img={event.img}
+                  link={event.link}
+                  date={event.date}
+                  isAdmin={isAdmin}
+                  onDelete={handleDeleteClick}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-zinc-500 font-['GoogleSans'] italic">
+              Stay tuned! New chapters are being written...
+            </div>
+          )}
         </div>
 
       </div>
@@ -139,17 +178,26 @@ export default function Events() {
 
       {/* PAST EVENTS CAROUSEL */}
       <div className="relative overflow-hidden">
-        <div className="flex w-max gap-8 animate-events-scroll font-['GoogleSans']">
-          {[...events, ...events].map((event, i) => (
-            <EventCard
-              key={`past-${i}`}
-              title={event.title}
-              date={event.date}
-              img={event.img}
-              link={event.link}
-            />
-          ))}
-        </div>
+        {pastEvents.length > 0 ? (
+          <div className="flex w-max gap-8 animate-events-scroll font-['GoogleSans']">
+            {[...pastEvents, ...pastEvents].map((event, i) => (
+              <EventCard
+                key={event._id || `past-${i}`}
+                id={event._id}
+                title={event.title}
+                date={event.date}
+                img={event.img}
+                link={event.link}
+                isAdmin={isAdmin}
+                onDelete={handleDeleteClick}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="px-12 text-zinc-500 font-['GoogleSans'] italic">
+            Reliving our milestones soon...
+          </div>
+        )}
       </div>
 
     </section>

@@ -85,8 +85,9 @@ function LoginForm() {
                 throw new Error(data.message || "Sign in failed")
             }
 
-            // Save JWT
+            // Save JWT and User info
             localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
             window.location.href = "/"
         } catch (err) {
             console.error("Auth error", err)
@@ -101,7 +102,7 @@ function LoginForm() {
     }
 
     return (
-        <div className="flex min-h-screen pt-16 bg-black text-white">
+        <div className="flex min-h-screen pt-16 bg-black text-white" style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}>
             {/* Left side - Visuals */}
             <div className="relative hidden lg:flex w-1/2 overflow-hidden border-r border-zinc-800">
                 <img
@@ -117,7 +118,7 @@ function LoginForm() {
                 <div className="w-full max-w-md space-y-8">
                     <div className="text-center lg:text-left">
                         <h2 className="text-3xl font-bold tracking-tight">Sign In</h2>
-                        <p className="mt-2 text-zinc-400">Welcome back to MoleculeInsight. Access your dashboard.</p>
+                        <p className="mt-2 text-zinc-400">Welcome back! Sign in to continue your journey with Digital Dominators.</p>
                     </div>
 
                     {error && (
@@ -179,7 +180,7 @@ function LoginForm() {
                         className="w-full h-11 gap-2 border-zinc-800 hover:bg-zinc-900"
                         onClick={handleGoogleLogin}
                     >
-                        <img src="/google-logo.png" alt="Google" width={20} height={20} />
+                        <img src="/icons/google-logo.png" alt="Google" width={20} height={20} />
                         Google
                     </Button>
 

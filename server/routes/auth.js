@@ -67,7 +67,17 @@ router.post('/signin', async (req, res) => {
             { expiresIn: '24h' },
             (err, token) => {
                 if (err) throw err;
-                res.json({ success: true, token });
+                res.json({
+                    success: true,
+                    token,
+                    user: {
+                        id: user.id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        role: user.role
+                    }
+                });
             }
         );
     } catch (err) {

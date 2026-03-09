@@ -111,7 +111,7 @@ function SignUpForm() {
     }
 
     return (
-        <div className="flex min-h-screen pt-16 bg-black text-white">
+        <div className="flex min-h-screen pt-16 bg-black text-white" style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}>
             {/* Left side - Visuals */}
             <div className="relative hidden lg:flex w-1/2 items-center justify-center overflow-hidden border-r border-zinc-800">
                 <img
@@ -126,7 +126,7 @@ function SignUpForm() {
                 <div className="w-full max-w-md space-y-8">
                     <div className="text-center lg:text-left">
                         <h2 className="text-3xl font-bold tracking-tight">Create Account</h2>
-                        <p className="mt-2 text-zinc-400">Join the future of molecule analysis</p>
+                        <p className="mt-2 text-zinc-400">Welcome to Digital Dominators! Join the community to access events, resources, and exclusive updates.</p>
                     </div>
 
                     {error && (
@@ -235,7 +235,7 @@ function SignUpForm() {
                         className="w-full h-11 gap-2 border-zinc-800 hover:bg-zinc-900"
                         onClick={handleGoogleSignUp}
                     >
-                        <img src="/google-logo.png" alt="Google" width={20} height={20} />
+                        <img src="/icons/google-logo.png" alt="Google" width={20} height={20} />
                         Google
                     </Button>
 

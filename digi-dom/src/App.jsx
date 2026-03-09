@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { HeroUIProvider } from "@heroui/react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -34,6 +34,7 @@ function MainPage() {
 
 function App() {
   const { scrollYProgress } = useScroll();
+  const location = useLocation();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -77,7 +78,7 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
         </Routes>
 
-        <Footer />
+        {!["/login", "/sign-up"].includes(location.pathname) && <Footer />}
       </div>
     </HeroUIProvider>
   );
