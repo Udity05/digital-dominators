@@ -44,6 +44,18 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Handle Google OAuth redirect params
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('auth_token');
+    const userData = params.get('user_data');
+
+    if (token && userData) {
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', userData);
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);

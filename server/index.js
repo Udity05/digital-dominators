@@ -3,12 +3,24 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const passport = require('passport');
+const session = require('express-session');
+
+require('./config/passport'); // Load passport config
 
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'digital_dominators_secret',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes

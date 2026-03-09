@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const User = require('../models/User');
 
 // Register
@@ -85,5 +86,51 @@ router.post('/signin', async (req, res) => {
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });
+
+// Google Auth
+router.get('/google', (req, res, next) => {
+    const { signup } = req.query;
+    passport.authenticate('google', {
+        scope: ['profile', 'email'],
+        state: signup // Pass signup state
+    })(req, res, next);
+});
+
+router.get('/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login?error=oauth_failed' }),
+    (req, res) => {
+        const user = req.user;
+        const payload = {
+            user: {
+                id: user.id,
+                role: user.role
+            }
+        };
+
+        jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: '24h' },
+            (err, token) => {
+                if (err) return res.redirect('/login?error=oauth_failed');
+
+                // Construct user data to pass in URL (or let frontend fetch it)
+                const userData = JSON.stringify({
+                    id: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    role: user.role,
+                    avatar: user.avatar
+                });
+
+                // Redirect to frontend with token and user info
+                // Note: In production, you'd want a more secure way to pass this, 
+                // but for this demo/local setup, query params work.
+                res.redirect(`/?auth_token=${token}&user_data=${encodeURIComponent(userData)}`);
+            }
+        );
+    }
+);
 
 module.exports = router;

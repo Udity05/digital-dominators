@@ -39,7 +39,7 @@ export default function Hero() {
         </p>
 
         <div className="mt-8 flex items-center justify-center gap-4">
-          <a href="#signup" className="inline-flex items-center px-8 py-3 rounded-full text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition font-ui-sans">
+          <a href="https://chat.whatsapp.com/J0o1beFGCHfJ8ZHGKjcqkd" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-8 py-3 rounded-full text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition font-ui-sans">
             Join Now
           </a>
 

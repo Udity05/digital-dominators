@@ -17,12 +17,12 @@ export default function EventCard({ id, title, date, img, link, isAdmin, onDelet
             e.stopPropagation();
             onDelete(id);
           }}
-          className="absolute top-4 right-4 p-2.5 bg-red-600/90 hover:bg-red-600 text-white rounded-xl 
+          className="absolute top-4 right-4 p-2.5 bg-transparent border border-white/20 hover:bg-white/10 text-white rounded-xl 
             opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0
-            shadow-xl backdrop-blur-sm z-10"
+            shadow-xl backdrop-blur-md z-10"
           title="Delete Event"
         >
-          <Trash2 size={20} />
+          <Trash2 size={20} className="text-white/80 hover:text-red-500 transition-colors" />
         </button>
       )}
 

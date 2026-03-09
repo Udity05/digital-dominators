@@ -119,7 +119,7 @@ export default function Events() {
                 onClick={() => setIsModalOpen(true)}
                 className="flex items-center gap-2 px-6 py-3 rounded-full border border-purple-500/50 hover:bg-purple-500/10 text-purple-400 font-['GoogleSans'] transition group"
               >
-                <Plus size={20} className="group-hover:rotate-90 transition-transform duration-300" />
+                <Plus size={20} />
                 Add new events
               </button>
             )}
@@ -188,8 +188,8 @@ export default function Events() {
                 date={event.date}
                 img={event.img}
                 link={event.link}
-                isAdmin={isAdmin}
-                onDelete={handleDeleteClick}
+                isAdmin={false}
+                onDelete={null}
               />
             ))}
           </div>
