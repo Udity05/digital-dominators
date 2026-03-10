@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import { Star, Upload, X, MessageSquare } from "lucide-react";
 
 const AVATAR_OPTIONS = [
-    "https://api.dicebear.com/9.x/avataaars/svg?seed=Felix",
-    "https://api.dicebear.com/9.x/avataaars/svg?seed=Anita",
-    "https://api.dicebear.com/9.x/avataaars/svg?seed=George",
-    "https://api.dicebear.com/9.x/avataaars/svg?seed=Mia",
-    "https://api.dicebear.com/9.x/avataaars/svg?seed=Oscar",
-    "https://api.dicebear.com/9.x/avataaars/svg?seed=Bella"
+    "https://api.dicebear.com/9.x/personas/svg?seed=Felix",
+    "https://api.dicebear.com/9.x/personas/svg?seed=Anita",
+    "https://api.dicebear.com/9.x/personas/svg?seed=George",
+    "https://api.dicebear.com/9.x/personas/svg?seed=Mia",
+    "https://api.dicebear.com/9.x/personas/svg?seed=Oscar",
+    "https://api.dicebear.com/9.x/personas/svg?seed=Bella",
+    "https://api.dicebear.com/9.x/personas/svg?seed=Alexander",
+    "https://api.dicebear.com/9.x/personas/svg?seed=Sarah",
+    "https://api.dicebear.com/9.x/personas/svg?seed=Jocelyn",
+    "https://api.dicebear.com/9.x/personas/svg?seed=Adrian",
+    "https://api.dicebear.com/9.x/personas/svg?seed=Liliana",
+    "https://api.dicebear.com/9.x/personas/svg?seed=Chase"
 ];
 
 export default function FeedbackModal({ isOpen, onClose, onAuthRequired }) {
@@ -192,11 +198,11 @@ export default function FeedbackModal({ isOpen, onClose, onAuthRequired }) {
                     {/* Role */}
                     <div>
                         <label className="block text-sm font-semibold mb-2">
-                            Your Role <span className="text-purple-500">*</span>
+                            Your Identity <span className="text-purple-500">*</span>
                         </label>
                         <input
                             type="text"
-                            placeholder="e.g., Hackathon Teammate, Student, Mentor"
+                            placeholder="e.g., Student, Developer, Designer, Professional"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                             className="w-full bg-[#131112] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 transition-colors"

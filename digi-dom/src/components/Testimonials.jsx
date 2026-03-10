@@ -50,9 +50,32 @@ function AvatarCircles({ numPeople, avatarUrls }) {
   )
 }
 
+// Map of known person names to their local public images
+const LOCAL_AVATARS = {
+  "BIKRAM MONDAL": "/Bikram.png",
+  "Bikram Mondal": "/Bikram.png",
+  "EKARNA DAS": "/Ekarna.png",
+  "Ekarna Das": "/Ekarna.png",
+  "B.VENKATESH": "/Venkatesh.png",
+  "B. Venkatesh": "/Venkatesh.png",
+  "B.Venkatesh": "/Venkatesh.png",
+  "Venkatesh": "/Venkatesh.png",
+};
+
+function getAvatarSrc(testimonial) {
+  // 1. Check local known persons map
+  if (LOCAL_AVATARS[testimonial.name]) return LOCAL_AVATARS[testimonial.name];
+  // 2. If server-uploaded image
+  if (testimonial.avatar?.startsWith('/uploads')) return `${import.meta.env.VITE_API_URL || ""}${testimonial.avatar}`;
+  // 3. If external URL avatar
+  if (testimonial.avatar) return testimonial.avatar;
+  // 4. Fallback: DiceBear cartoon avatar based on name
+  return `https://api.dicebear.com/9.x/personas/svg?seed=${encodeURIComponent(testimonial.name)}`;
+}
+
 function TestimonialCard({ testimonial }) {
   return (
-    <div className="relative group transition-all duration-500 h-full border border-white/5 bg-[#171717] hover:border-purple-500/30 hover:shadow-[0_0_30px_rgba(168,85,247,0.25)] rounded-3xl overflow-hidden backdrop-blur-sm" style={{ minHeight: "280px" }}>
+    <div className="relative group transition-all duration-500 h-full border border-white/5 bg-[#171717] hover:border-purple-500/40 hover:shadow-[0_0_60px_rgba(168,85,247,0.4)] z-0 hover:z-20 rounded-3xl overflow-hidden backdrop-blur-sm" style={{ minHeight: "280px" }}>
       <div className="absolute top-0 right-0 p-6 text-white/5 group-hover:text-purple-500/10 transition-colors">
         <Quote className="w-12 h-12 rotate-180" />
       </div>
@@ -60,19 +83,13 @@ function TestimonialCard({ testimonial }) {
       <div className="p-8 flex flex-col h-full relative z-10">
         <div className="flex items-center space-x-4 mb-6">
           <div className="relative">
-            {testimonial.avatar ? (
-              <img
-                src={testimonial.avatar?.startsWith('/uploads') ? `${import.meta.env.VITE_API_URL || ""}${testimonial.avatar}` : testimonial.avatar || "/placeholder.svg"}
-                alt={testimonial.name}
-                className="w-14 h-14 rounded-full border border-white/10 object-cover transition-all duration-500"
-              />
-            ) : (
-              <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                <User className="w-7 h-7 text-white/50" />
-              </div>
-            )}
+            <img
+              src={getAvatarSrc(testimonial)}
+              alt={testimonial.name}
+              className="w-14 h-14 rounded-full border border-white/10 object-cover transition-all duration-500 bg-white/5 grayscale group-hover:grayscale-0"
+            />
             {/* Live Indicator Circle */}
-            <div className="absolute bottom-0 right-0 w-4 h-4 bg-[#69E300] rounded-full border-[2.5px] border-[#171717]" />
+            <div className="absolute bottom-0 right-0 w-4 h-4 bg-purple-500 rounded-full border-[2.5px] border-[#171717]" />
           </div>
           <div>
             <h4 className="font-bold text-white text-lg tracking-tight font-['GoogleSans']">{testimonial.name}</h4>
@@ -80,7 +97,10 @@ function TestimonialCard({ testimonial }) {
           </div>
         </div>
 
-        <p className="text-white/60 text-base leading-relaxed text-pretty flex-grow mb-6 group-hover:text-white/90 transition-colors italic font-['GoogleSans']">
+        <p
+          className="text-white/60 text-base leading-relaxed text-pretty flex-grow mb-6 group-hover:text-white/90 transition-colors italic"
+          style={{ fontFamily: "'Inter', sans-serif" }}
+        >
           "{testimonial.feedback}"
         </p>
 
@@ -187,7 +207,7 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <div className="relative overflow-hidden w-full py-4 mb-2">
+      <div className="relative overflow-hidden w-full py-12 mb-2">
         {/* Gradients for fade effect on edges */}
         <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />

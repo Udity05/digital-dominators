@@ -18,7 +18,7 @@ const team = [
   { name: "SWARTHAK DAS", role: "WEB DEV TEAM", img: "/Swarthak.png" },
   { name: "SAMPURNA SETT", role: "SOCIAL MEDIA TEAM", img: "/Sam.png" },
   { name: "AAFIA AKRAM", role: "SOCIAL MEDIA TEAM", img: "/Afia.png" },
-  { name: "BIKRAM MONDAL", role: "AI&ML TEAM", img: "/Bikraam.png" },
+  { name: "BIKRAM MONDAL", role: "AI&ML TEAM", img: "/Bikram.png" },
   { name: "B.VENKATESH", role: "AI&ML TEAM", img: "/Venkatesh.png" },
   { name: "SEKH MAINUDDIN JAMAL", role: "AI&ML TEAM", img: "/Jamal.png" },
   { name: "RABISANKAR MAITY", role: "PR TEAM", img: "/RaviShankar.png" },

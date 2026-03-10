@@ -1,8 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react"
 import { useSearchParams, Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import Header from "@/components/header"
+import { UserPlus, Mail, Lock, User, AlertCircle } from "lucide-react"
 
 function SignUpForm() {
     const [searchParams] = useSearchParams()
@@ -81,15 +80,8 @@ function SignUpForm() {
             const API_URL = import.meta.env.VITE_API_URL || "";
             const response = await fetch(`${API_URL}/api/auth/register`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    firstName,
-                    lastName,
-                    email,
-                    password,
-                }),
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ firstName, lastName, email, password }),
             })
 
             const data = await response.json()
@@ -113,141 +105,152 @@ function SignUpForm() {
     }
 
     return (
-        <div className="flex min-h-screen pt-16 bg-black text-white" style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}>
-            {/* Left side - Visuals */}
-            <div className="relative hidden lg:flex w-1/2 items-center justify-center overflow-hidden border-r border-zinc-800">
-                <img
-                    src="/signup-banner.png"
-                    alt="Sign up banner"
-                    className="w-full h-full object-cover"
-                />
-            </div>
+        <div
+            className="min-h-screen bg-black flex items-center justify-center p-4 pt-24 pb-12"
+            style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}
+        >
+            {/* Background glow effects */}
+            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none" />
+            <div className="absolute top-2/3 right-1/3 w-[400px] h-[400px] rounded-full bg-pink-600/5 blur-[100px] pointer-events-none" />
 
-            {/* Right side - Sign up form */}
-            <div className="w-full lg:w-1/2 flex items-start justify-center px-8 py-8 md:p-12 bg-black overflow-y-auto h-[calc(100vh-4rem)]">
-                <div className="w-full max-w-md space-y-8">
-                    <div className="text-center lg:text-left">
-                        <h2 className="text-3xl font-bold tracking-tight">Create Account</h2>
-                        <p className="mt-2 text-zinc-400">Welcome to Digital Dominators! Join the community to access events, resources, and exclusive updates.</p>
+            {/* Modal Card */}
+            <div className="relative w-full max-w-lg bg-[#0e0e0e] border border-white/10 rounded-2xl shadow-2xl shadow-black/60 p-8 space-y-6 z-10">
+
+                {/* Header */}
+                <div className="text-center space-y-1">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 mb-3">
+                        <UserPlus className="w-6 h-6 text-purple-400" />
                     </div>
+                    <h2 className="text-2xl font-bold text-white tracking-tight">Create Account</h2>
+                    <p className="text-sm text-white/50">Join the Digital Dominators community today.</p>
+                </div>
 
-                    {error && (
-                        <div className="bg-red-900/20 border border-red-900/50 text-red-500 px-4 py-3 rounded-lg text-sm font-medium">
-                            {error}
-                        </div>
-                    )}
+                {/* Error */}
+                {error && (
+                    <div className="flex items-start gap-3 bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl text-sm">
+                        <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+                        <span>{error}</span>
+                    </div>
+                )}
 
-                    <form onSubmit={handleSignUp} className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <label htmlFor="firstName" className="text-sm font-medium">
-                                    First Name
-                                </label>
-                                <Input
+                {/* Form */}
+                <form onSubmit={handleSignUp} className="space-y-4">
+                    {/* Name row */}
+                    <div className="grid grid-cols-2 gap-3">
+                        <div className="space-y-1.5">
+                            <label htmlFor="firstName" className="text-sm font-medium text-white/80">First Name</label>
+                            <div className="relative">
+                                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                                <input
                                     id="firstName"
                                     type="text"
                                     placeholder="John"
                                     value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
                                     required
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-3 py-3 text-white placeholder-white/25 focus:outline-none focus:border-purple-500/50 focus:bg-white/[0.07] transition-colors text-sm"
                                 />
                             </div>
-
-                            <div className="space-y-2">
-                                <label htmlFor="lastName" className="text-sm font-medium">
-                                    Last Name
-                                </label>
-                                <Input
+                        </div>
+                        <div className="space-y-1.5">
+                            <label htmlFor="lastName" className="text-sm font-medium text-white/80">Last Name</label>
+                            <div className="relative">
+                                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                                <input
                                     id="lastName"
                                     type="text"
                                     placeholder="Doe"
                                     value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
                                     required
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-3 py-3 text-white placeholder-white/25 focus:outline-none focus:border-purple-500/50 focus:bg-white/[0.07] transition-colors text-sm"
                                 />
                             </div>
                         </div>
+                    </div>
 
-                        <div className="space-y-2">
-                            <label htmlFor="email" className="text-sm font-medium">
-                                Email
-                            </label>
-                            <Input
+                    <div className="space-y-1.5">
+                        <label htmlFor="email" className="text-sm font-medium text-white/80">Email</label>
+                        <div className="relative">
+                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                            <input
                                 id="email"
                                 type="email"
                                 placeholder="name@company.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
+                                className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white placeholder-white/25 focus:outline-none focus:border-purple-500/50 focus:bg-white/[0.07] transition-colors text-sm"
                             />
                         </div>
+                    </div>
 
-                        <div className="space-y-2">
-                            <label htmlFor="password" className="text-sm font-medium">
-                                Password
-                            </label>
-                            <Input
+                    <div className="space-y-1.5">
+                        <label htmlFor="password" className="text-sm font-medium text-white/80">Password</label>
+                        <div className="relative">
+                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                            <input
                                 id="password"
                                 type="password"
                                 placeholder="••••••••"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white placeholder-white/25 focus:outline-none focus:border-purple-500/50 focus:bg-white/[0.07] transition-colors text-sm"
                             />
-                            <p className="text-xs text-zinc-500 mt-1">
-                                Must be 8+ characters with uppercase, lowercase, number, and special character
-                            </p>
                         </div>
+                        <p className="text-xs text-white/30 pl-1">8+ chars, uppercase, lowercase, number & special character</p>
+                    </div>
 
-                        <div className="space-y-2">
-                            <label htmlFor="confirmPassword" className="text-sm font-medium">
-                                Confirm Password
-                            </label>
-                            <Input
+                    <div className="space-y-1.5">
+                        <label htmlFor="confirmPassword" className="text-sm font-medium text-white/80">Confirm Password</label>
+                        <div className="relative">
+                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                            <input
                                 id="confirmPassword"
                                 type="password"
                                 placeholder="••••••••"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 required
+                                className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white placeholder-white/25 focus:outline-none focus:border-purple-500/50 focus:bg-white/[0.07] transition-colors text-sm"
                             />
-                        </div>
-
-                        <Button
-                            type="submit"
-                            disabled={isLoading}
-                            className="w-full h-11 text-base font-semibold shadow-md mt-4"
-                        >
-                            {isLoading ? "Creating Account..." : "Create Account"}
-                        </Button>
-                    </form>
-
-                    <div className="relative">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-zinc-800"></div>
-                        </div>
-                        <div className="relative flex justify-center text-xs uppercase">
-                            <span className="px-2 bg-black text-zinc-500 font-medium">Or register with</span>
                         </div>
                     </div>
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        className="w-full h-11 gap-2 border-zinc-800 hover:bg-zinc-900"
-                        onClick={handleGoogleSignUp}
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full h-11 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed mt-2"
                     >
-                        <img src="/icons/google-logo.png" alt="Google" width={20} height={20} />
-                        Google
-                    </Button>
+                        {isLoading ? "Creating Account..." : "Create Account"}
+                    </button>
+                </form>
 
-                    <p className="text-center text-sm text-zinc-400 pb-8">
-                        Already have an account?{" "}
-                        <Link to="/login" className="text-purple-500 hover:underline font-medium">
-                            Sign In
-                        </Link>
-                    </p>
+                {/* Divider */}
+                <div className="relative flex items-center gap-3">
+                    <div className="flex-1 h-px bg-white/10" />
+                    <span className="text-xs text-white/30 uppercase tracking-widest font-medium">or</span>
+                    <div className="flex-1 h-px bg-white/10" />
                 </div>
+
+                {/* Google */}
+                <button
+                    type="button"
+                    onClick={handleGoogleSignUp}
+                    className="w-full h-11 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-3"
+                >
+                    <img src="/icons/google-logo.png" alt="Google" width={18} height={18} />
+                    Sign up with Google
+                </button>
+
+                {/* Footer */}
+                <p className="text-center text-sm text-white/40">
+                    Already have an account?{" "}
+                    <Link to="/login" className="text-purple-400 hover:text-purple-300 font-medium transition-colors">
+                        Sign In
+                    </Link>
+                </p>
             </div>
         </div>
     )
