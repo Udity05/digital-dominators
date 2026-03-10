@@ -93,7 +93,7 @@ export default function EventModal({ isOpen, onClose, onAdd }) {
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
             style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}
         >
-            <div className="relative w-full max-w-lg bg-zinc-950 border border-zinc-800 rounded-2xl p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="relative w-full max-w-lg bg-zinc-950 border border-zinc-800 rounded-2xl p-8 shadow-2xl">
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 text-zinc-500 hover:text-white transition"
@@ -185,7 +185,7 @@ export default function EventModal({ isOpen, onClose, onAdd }) {
                     <Button
                         type="submit"
                         disabled={loading}
-                        className="w-full h-12 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl transition mt-4 uppercase shadow-lg shadow-purple-600/20"
+                        className="w-full h-12 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-full transition mt-4 uppercase shadow-lg shadow-purple-600/20"
                     >
                         {loading ? "Creating Event..." : "Create Event"}
                     </Button>

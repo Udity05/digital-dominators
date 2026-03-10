@@ -89,21 +89,52 @@ const events = [
     }
 ];
 
+const Testimonial = require('./models/Testimonial');
+
+const testimonials = [
+    {
+        text: "Digital Dominators is a vibrant tech community that truly values collaboration and creativity. Working here as a graphic designer, I’ve gained exposure through events, learning sessions, and a network of passionate innovators. It’s a space that constantly pushes you to grow, learn, and create meaningful impact.",
+        name: "Ekarna Das",
+        role: "Student",
+    },
+    {
+        text: "Yeah, the day when i experienced the workshops and sessions held by the community, It's been great with rewarding experience and healthy future prospects!",
+        name: "B.Venkatesh",
+        role: "Student",
+    },
+    {
+        text: "A community where learning, collaboration, and growth come together. For me, Digital Dominators is more than just a community. It feels like the hometown of my coding journey, a place I can trust, learn from others, and never hesitate to share my own ideas.",
+        name: "Bikram Mondal",
+        role: "Student",
+    },
+    {
+        text: "Being part of Digital Dominators has been an amazing learning experience.The sessions are practical, insightful, and easy to understand.The community support and networking opportunities have really helped me grow.I feel more confident and motivated in my digital journey now.",
+        name: "Ankita Mitra",
+        role: "Student",
+    },
+];
+
 const seedDB = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URI);
         console.log('Connected to MongoDB for seeding...');
 
-        // Clear existing events (optional, but good for reset)
-        // await Event.deleteMany({});
-
-        // Check if database is empty before seeding
-        const count = await Event.countDocuments();
-        if (count === 0) {
+        // Check and seed events
+        const eventCount = await Event.countDocuments();
+        if (eventCount === 0) {
             await Event.insertMany(events);
             console.log('Database seeded successfully with initial events!');
         } else {
             console.log('Database already has events, skipping seed.');
+        }
+
+        // Check and seed testimonials
+        const testimonialCount = await Testimonial.countDocuments();
+        if (testimonialCount === 0) {
+            await Testimonial.insertMany(testimonials);
+            console.log('Database seeded successfully with initial testimonials!');
+        } else {
+            console.log('Database already has testimonials, skipping seed.');
         }
 
         process.exit();

@@ -50,11 +50,13 @@ export default function Navbar() {
                     </div>
                 </div>
 
-                <ul className="hidden md:flex items-center gap-24 text-white font-['GoogleSans'] text-sm">
-                    <li><a href="#home" className='text-white hover:text-[#f5a3ff] cursor-pointer transition'>HOME</a></li>
-                    <li><a href="#team" className='text-white hover:text-[#f5a3ff] cursor-pointer transition'>TEAM</a></li>
-                    <li><a href="#events" className='text-white hover:text-[#f5a3ff] cursor-pointer transition'>EVENTS</a></li>
-                    <li><a href="#faq" className='text-white hover:text-[#f5a3ff] cursor-pointer transition'>FAQs</a></li>
+                <ul className="hidden md:flex items-center gap-10 text-white font-['GoogleSans'] text-sm">
+                    <li><a href="/#home" className='text-white hover:text-[#f5a3ff] cursor-pointer transition'>HOME</a></li>
+                    <li><a href="/#about" className='text-white hover:text-[#f5a3ff] cursor-pointer transition'>ABOUT US</a></li>
+                    <li><a href="/#team" className='text-white hover:text-[#f5a3ff] cursor-pointer transition'>TEAM</a></li>
+                    <li><a href="/#events" className='text-white hover:text-[#f5a3ff] cursor-pointer transition'>EVENTS</a></li>
+                    <li><a href="/#testimonials" className='text-white hover:text-[#f5a3ff] cursor-pointer transition'>TESTIMONIALS</a></li>
+                    <li><a href="/#faq" className='text-white hover:text-[#f5a3ff] cursor-pointer transition'>FAQs</a></li>
                 </ul>
 
                 <div className="hidden md:flex items-center gap-4">
@@ -62,7 +64,7 @@ export default function Navbar() {
                         <div className="flex items-center gap-4 group relative">
                             <div className="flex items-center gap-3">
                                 <span className="text-sm text-zinc-300 font-['GoogleSans']">
-                                    {user.firstName}
+                                    {[user.firstName, user.lastName].filter(Boolean).join(" ")}
                                 </span>
                                 <div className="w-10 h-10 rounded-full border-2 border-purple-500 overflow-hidden flex items-center justify-center bg-zinc-900 border-opacity-50">
                                     {user.avatar ? (
@@ -113,10 +115,12 @@ export default function Navbar() {
 
             {open && (
                 <div className="md:hidden bg-black text-white px-6 pb-6 space-y-4 font-['GoogleSans'] border-b border-zinc-800">
-                    <a href="#home" onClick={() => setOpen(false)} className="block hover:text-[#f5a3ff]">HOME</a>
-                    <a href="#team" onClick={() => setOpen(false)} className="block hover:text-[#f5a3ff]">TEAM</a>
-                    <a href="#events" onClick={() => setOpen(false)} className="block hover:text-[#f5a3ff]">EVENTS</a>
-                    <a href="#faq" onClick={() => setOpen(false)} className="block hover:text-[#f5a3ff]">FAQs</a>
+                    <a href="/#home" onClick={() => setOpen(false)} className="block hover:text-[#f5a3ff]">HOME</a>
+                    <a href="/#about" onClick={() => setOpen(false)} className="block hover:text-[#f5a3ff]">ABOUT US</a>
+                    <a href="/#team" onClick={() => setOpen(false)} className="block hover:text-[#f5a3ff]">TEAM</a>
+                    <a href="/#events" onClick={() => setOpen(false)} className="block hover:text-[#f5a3ff]">EVENTS</a>
+                    <a href="/#testimonials" onClick={() => setOpen(false)} className="block hover:text-[#f5a3ff]">TESTIMONIALS</a>
+                    <a href="/#faq" onClick={() => setOpen(false)} className="block hover:text-[#f5a3ff]">FAQs</a>
 
                     <div className="pt-4 flex flex-col gap-4 border-t border-zinc-800 mt-4">
                         {user ? (
