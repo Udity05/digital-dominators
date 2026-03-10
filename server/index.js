@@ -26,6 +26,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
+app.use('/api/testimonials', require('./routes/testimonials'));
 
 // DB Connection
 mongoose.connect(process.env.MONGODB_URI)
